@@ -7,17 +7,119 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="material/css/styles.css">
     <link rel="stylesheet" href="material/css/st.css">
+    <style>
+        /* Invite Section */
+        .frens-invite {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .frens-invite-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: #f3f3f3;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        input {
+            border: none;
+            padding: 8px;
+            width: 250px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 8px 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        /* Invited Friends List */
+        .invited-friends {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .friend {
+            background: #ffffff;
+            padding: 10px;
+            margin: 10px auto;
+            width: 80%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .friend i {
+            color: #007bff;
+            font-size: 24px;
+        }
+
+        @keyframes fadeIn {
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #222;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     
-
     <div class="frens-invite">
+        <h2>Invite Your Friends</h2>
         <div class="frens-invite-button">
             <input type="text" value="https://t.me/LitLinkclon_bot" id="link" readonly>
             <button id="copyButton">Copy Link</button>
         </div>
+        <p id="copyMessage" style="color: green; display: none;">Link copied!</p>
     </div>
 
+    <!-- Invited Friends Section -->
+    <div class="invited-friends">
+        <h3>Invited Friends</h3>
+        <div id="friendsList"></div>
+    </div>
+
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="home.html" class="nav-item">
             <i class="fas fa-home"></i>
@@ -40,7 +142,54 @@
             <span>BALANCE</span>
         </a>
     </nav>
-    <script src="material/js/cojs.js"></script>
-    <script src="material/js/scripts.js"></script>
+
+    <script>
+        document.getElementById('copyButton').addEventListener('click', function () {
+            let copyText = document.getElementById('link');
+            copyText.select();
+            document.execCommand('copy');
+
+            let message = document.getElementById('copyMessage');
+            message.style.display = 'block';
+            setTimeout(() => message.style.display = 'none', 2000);
+        });
+
+        // Simulated backend: Storing invited users in Local Storage
+        const invitedUsers = JSON.parse(localStorage.getItem('invitedUsers')) || [];
+
+        function displayInvitedFriends() {
+            const friendsList = document.getElementById('friendsList');
+            friendsList.innerHTML = '';
+
+            invitedUsers.forEach((user, index) => {
+                let friendDiv = document.createElement('div');
+                friendDiv.classList.add('friend');
+                friendDiv.innerHTML = `
+                    <i class="fas fa-user"></i>
+                    <p>${user}</p>
+                `;
+                friendsList.appendChild(friendDiv);
+            });
+        }
+
+        // Simulate inviting a friend (For testing: Add a random user)
+        function addRandomFriend() {
+            const randomNames = ['John Doe', 'Sarah Connor', 'James Smith', 'Alice Brown', 'David Lee'];
+            const newFriend = randomNames[Math.floor(Math.random() * randomNames.length)];
+
+            if (!invitedUsers.includes(newFriend)) {
+                invitedUsers.push(newFriend);
+                localStorage.setItem('invitedUsers', JSON.stringify(invitedUsers));
+                displayInvitedFriends();
+            }
+        }
+
+        // Display invited friends on page load
+        displayInvitedFriends();
+
+        // Simulate a new friend joining every 5 seconds (for demo purposes)
+        setInterval(addRandomFriend, 5000);
+    </script>
+
 </body>
 </html>
