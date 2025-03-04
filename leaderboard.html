@@ -10,10 +10,16 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #000; 
-            color: #fff; 
+            background-color: #000;
+            color: #fff;
             margin: 0;
             padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: #fff;
+            color: #000;
         }
 
         #balance-container {
@@ -32,163 +38,111 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid #000000; 
             border-radius: 12px;
-            background-color: #333030; 
+            background-color: #333;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
             width: 80%;
         }
 
         .task:hover {
-            transform: translateY(-5px);
-        }
-
-        .task-detail {
-            display: flex;
-            align-items: center;
-        }
-
-        .task-image img {
-            border-radius: 8px;
-            margin-right: 10px;
-        }
-
-        .task h4 {
-            margin: 0;
-            font-size: 18px;
-            color: #f2f2f2;
-        }
-
-        .task-data {
-            display: flex;
-            align-items: center;
-            margin-top: 8px;
-        }
-
-        .task-data img {
-            margin-right: 5px;
-        }
-
-        .task-data h5 {
-            margin: 0;
-            color: #ffcc00;
-            font-size: 18px;
+            transform: scale(1.05);
         }
 
         .task-button {
-            background-color: #ffffff; 
-            color: rgb(0, 0, 0);
+            background-color: #2dd60c;
+            color: #fff;
             border: none;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
         }
 
-        .task-button:hover {
-            background-color: #2dd60c;
+        .progress-bar {
+            width: 80%;
+            background: #444;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px auto;
         }
 
-        @media (max-width: 600px) {
-            .task-container {
-                max-width: 100%;
-            }
+        .progress {
+            height: 20px;
+            width: 40%;
+            background: #2dd60c;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+        }
 
-            .task-button {
-                padding: 10px 15px;
-                font-size: 14px;
-            }
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            background: #222;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
 
-            .task h4 {
-                font-size: 16px;
-            }
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <h2><b>🏆</b></h2>
-
-    
+    <h2>🏆 Our Mission 🏆</h2>
     <div id="balance-container">
         <span id="balance">0</span> 🦴 total LitLink
-    </div><br>
-    <h2><u><b>🏆 our mission 🏆</b></u></h2>
-
-   
-    <div class="task">
-        <div class="task-detail">
-            <div class="task-image">
-                <img src="material/images/logo.png" width="45px" alt="">
-            </div>
-            <div>
-                <h4>1st</h4>
-                <div class="task-data">
-                    <img src="material/images/logo.png" width="20px" alt="Coin Icon">
-                    <h5>100,000,000+</h5>
-                </div>
-            </div>
-        </div>
-        
-    </div>     
-    <div class="task">
-        <div class="task-detail">
-            <div class="task-image">
-                <img src="material/images/logo.png" width="45px" alt="">
-            </div>
-            <div>
-                <h4>2nd</h4>
-                <div class="task-data">
-                    <img src="material/images/logo.png" width="20px" alt="Coin Icon">
-                    <h5>200,000,000+</h5>
-                </div>
-            </div>
-        </div>
-        
-    </div> 
-    <div class="task">
-        <div class="task-detail">
-            <div class="task-image">
-                <img src="material/images/logo.png" width="45px" alt="">
-            </div>
-            <div>
-                <h4>3rd</h4>
-                <div class="task-data">
-                    <img src="material/images/logo.png" width="20px" alt="Coin Icon">
-                    <h5>300,000,000+</h5>
-                </div>
-            </div>
-        </div>
-        
     </div>
 
-        
+    <div class="progress-bar">
+        <div class="progress" id="progress">40%</div>
+    </div>
 
-        <nav class="bottom-nav">
-            <a href="home.html" class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>HOME</span>
-            </a>
-            <a href="leaderboard.html" class="nav-item">
-                <i class="fas fa-trophy"></i>
-                <span>LEADERBOARD</span>
-            </a>
-            <a href="invite-friends.html" class="nav-item">
-                <i class="fas fa-user-friends"></i>
-                <span>FRIENDS</span>
-            </a>
-            <a href="task.html" class="nav-item">
-                <i class="fas fa-tasks"></i>
-                <span>TASKS</span>
-            </a>
-            <a href="balance.html" class="nav-item">
-                <i class="fas fa-wallet"></i>
-                <span>BALANCE</span>
-            </a>
-        </nav>
+    <div class="task-container" id="task-container"></div>
 
-    <script src="material/js/js.js"></script>
-    <script src="material/js/main.js"></script>
+    <button class="task-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item"><i class="fas fa-home"></i> HOME</a>
+        <a href="leaderboard.html" class="nav-item"><i class="fas fa-trophy"></i> LEADERBOARD</a>
+        <a href="invite-friends.html" class="nav-item"><i class="fas fa-user-friends"></i> FRIENDS</a>
+        <a href="task.html" class="nav-item"><i class="fas fa-tasks"></i> TASKS</a>
+        <a href="balance.html" class="nav-item"><i class="fas fa-wallet"></i> BALANCE</a>
+    </nav>
+
+    <script>
+        const tasks = [
+            { name: "Complete Profile", reward: "100,000,000+" },
+            { name: "Invite a Friend", reward: "200,000,000+" },
+            { name: "Daily Login", reward: "300,000,000+" }
+        ];
+
+        function loadTasks() {
+            const container = document.getElementById("task-container");
+            tasks.forEach(task => {
+                const taskElement = document.createElement("div");
+                taskElement.className = "task";
+                taskElement.innerHTML = `
+                    <div>
+                        <h4>${task.name}</h4>
+                        <p>Reward: ${task.reward}</p>
+                    </div>
+                    <button class="task-button">Claim</button>
+                `;
+                container.appendChild(taskElement);
+            });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        loadTasks();
+    </script>
 </body>
 </html>
