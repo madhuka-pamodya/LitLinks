@@ -5,62 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading...</title>
     <style>
-      
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden; 
-        }
-        
-        
-        .loading-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: url('material/images/re.gif') no-repeat center center fixed; 
-            background-size: cover; 
-            color: white;
-            text-align: center;
+            background: url('material/images/re.gif') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
             font-family: Arial, sans-serif;
+            color: white;
         }
-        
-        .loading-container h1 {
+
+        .loading-container {
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        h1 {
             font-size: 24px;
             margin: 0;
         }
-        
+
         .spinner {
-            border: 8px solid rgba(255, 255, 255, 0.1);
-            border-left: 8px solid #003cff; 
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top: 6px solid #ffcc00;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
-            margin-top: 20px;
+            margin: 20px auto;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        #countdown {
+            font-size: 18px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="loading-container">
-        <div>
-            <h1> adding...</h1>
-            <div class="spinner"></div>
-        </div>
+    <div class="loading-container" id="loadingContainer">
+        <h1>Redirecting in <span id="countdown">5</span> seconds...</h1>
+        <div class="spinner"></div>
     </div>
 
     <script>
-       
-        setTimeout(function() {
-            window.location.href = 'home.html'; 
-        }, 5000);
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        const loadingContainer = document.getElementById('loadingContainer');
+
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            if (countdown === 0) {
+                clearInterval(timer);
+                loadingContainer.style.animation = "fadeOut 1s forwards";
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 1000);
+            }
+        }, 1000);
     </script>
 </body>
 </html>
