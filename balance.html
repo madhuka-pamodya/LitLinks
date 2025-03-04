@@ -10,8 +10,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #000; 
-            color: #fff; 
+            background-color: #000;
+            color: #fff;
             margin: 0;
             padding: 0;
         }
@@ -24,6 +24,7 @@
         .task-container {
             margin: 10px auto;
             max-width: 600px;
+            transition: transform 0.3s ease;
         }
 
         .task {
@@ -32,16 +33,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid #000000; 
+            border: 1px solid #000000;
             border-radius: 12px;
-            background-color: #333030; 
+            background-color: #333030;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
             width: 80%;
         }
 
         .task:hover {
             transform: translateY(-5px);
+            background-color: #444444;
         }
 
         .task-detail {
@@ -77,18 +79,23 @@
         }
 
         .task-button {
-            background-color: #ffffff; 
+            background-color: #ffffff;
             color: rgb(0, 0, 0);
             border: none;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .task-button:hover {
             background-color: #a2aaa0;
+            transform: scale(1.05);
+        }
+
+        .task-button:active {
+            transform: scale(0.95);
         }
 
         @media (max-width: 600px) {
@@ -104,29 +111,59 @@
             .task h4 {
                 font-size: 16px;
             }
-           
-            
         }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #222;
+            padding: 10px 0;
+        }
+
+        .bottom-nav .nav-item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .bottom-nav .nav-item:hover {
+            background-color: #444;
+        }
+
+        .bottom-nav i {
+            margin-right: 5px;
+        }
+
     </style>
 </head>
 <body>
     <br>
 
-    <div id="balance-container"><h2><b>💸</b></h2><BR>
+    <div id="balance-container">
+        <h2><b>💸</b></h2>
         <span id="balance">0</span> 🦴 your total LitLink
-        <br>    <br>
-    </div><h2><b>comming soon !!</b></h2>
-   
-    
+        <br><br>
+    </div>
+
+    <h2><b>Coming Soon !!</b></h2>
+
     <br>
-       
-        <a href="detail.html" class="nav-item"> 
-            <i class="fas fa-info-circle"></i> 
-            
-           <span>DETAILS</span>
-        </a>
-        
-       <BR>
+    <a href="detail.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span>DETAILS</span>
+    </a>
+
+    <br>
+
     <div class="task-container">
         <div class="task">
             <div class="task-detail">
@@ -134,43 +171,51 @@
                     <img src="material/images/ton.png" width="45px" alt="">
                 </div>
                 <div>
-                    <h4>Link your wallet </h4>
+                    <h4>Link your wallet</h4>
                     <div class="task-data">
                         <img src="material/images/logo.png" width="20px" alt="Coin Icon">
                         <h5>💳</h5>
                     </div>
                 </div>
             </div>
-           <button onclick="window.location.href='wat.html'">CONNECT</button>
-            
-
+            <button class="task-button" onclick="confirmLink()">CONNECT</button>
         </div>
-        <br> <br>
-        <img src="material/images/logo.png" width="50%">
-                <nav class="bottom-nav">
-            <a href="home.html" class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>HOME</span>
-            </a>
-            <a href="leaderboard.html" class="nav-item">
-                <i class="fas fa-trophy"></i>
-                <span>LEADERBOARD</span>
-            </a>
-            <a href="invite-friends.html" class="nav-item">
-                <i class="fas fa-user-friends"></i>
-                <span>FRIENDS</span>
-            </a>
-            <a href="task.html" class="nav-item">
-                <i class="fas fa-tasks"></i>
-                <span>TASKS</span>
-            </a>
-            <a href="balance.html" class="nav-item">
-                <i class="fas fa-wallet"></i>
-                <span>BALANCE</span>
-            </a>
-        </nav>
+    </div>
 
-    <script src="material/js/js.js"></script>
-    <script src="material/js/main.js"></script>
+    <br><br>
+    <img src="material/images/logo.png" width="50%">
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>HOME</span>
+        </a>
+        <a href="leaderboard.html" class="nav-item">
+            <i class="fas fa-trophy"></i>
+            <span>LEADERBOARD</span>
+        </a>
+        <a href="invite-friends.html" class="nav-item">
+            <i class="fas fa-user-friends"></i>
+            <span>FRIENDS</span>
+        </a>
+        <a href="task.html" class="nav-item">
+            <i class="fas fa-tasks"></i>
+            <span>TASKS</span>
+        </a>
+        <a href="balance.html" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span>BALANCE</span>
+        </a>
+    </nav>
+
+    <script>
+        // Dynamic function to confirm link action
+        function confirmLink() {
+            if (confirm('Are you sure you want to link your wallet?')) {
+                window.location.href = 'wat.html';
+            }
+        }
+    </script>
 </body>
 </html>
